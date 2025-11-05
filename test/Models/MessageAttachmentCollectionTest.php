@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Inboxroad\Test\Models;
 
@@ -17,27 +19,26 @@ class MessageAttachmentCollectionTest extends Base
     /**
      * @var string
      */
-    private $name = 'test.txt';
+    private string $name = 'test.txt';
 
     /**
      * @var string
      */
-    private $content = 'file content';
+    private string $content = 'file content';
 
     /**
      * @var string
      */
-    private $mimeType = 'text/plain';
-    
+    private string $mimeType = 'text/plain';
+
     /**
      * @return void
      */
     final public function testAdd(): void
     {
         $collection = new MessageAttachmentCollection();
-        $result = $collection->add(new MessageAttachment($this->name, $this->content, $this->mimeType));
-        
-        $this->assertInstanceOf(MessageAttachmentCollectionInterface::class, $result);
+        $collection->add(new MessageAttachment($this->name, $this->content, $this->mimeType));
+
         $this->assertCount(1, $collection->toArray());
     }
 
@@ -48,7 +49,7 @@ class MessageAttachmentCollectionTest extends Base
     {
         $collection = new MessageAttachmentCollection();
         $collection->add(new MessageAttachment($this->name, $this->content, $this->mimeType));
-        
+
         $this->assertCount(1, $collection->getItems());
         $this->assertInstanceOf(MessageAttachmentInterface::class, $collection->getItems()[0]);
     }
@@ -68,7 +69,7 @@ class MessageAttachmentCollectionTest extends Base
         $this->assertArrayHasKey('content', $collection->toArray()[0]);
         $this->assertArrayHasKey('mimeType', $collection->toArray()[0]);
     }
-    
+
     /**
      * @return void
      */
@@ -78,7 +79,7 @@ class MessageAttachmentCollectionTest extends Base
         $collection->add(new MessageAttachment($this->name, $this->content, $this->mimeType));
         $collection->add(new MessageAttachment($this->name, $this->content, $this->mimeType));
         $collection->add(new MessageAttachment($this->name, $this->content, $this->mimeType));
-        
+
         $this->assertCount(3, $collection->toInboxroadArray());
         $this->assertArrayHasKey('filename', $collection->toInboxroadArray()[0]);
         $this->assertArrayHasKey('file_data', $collection->toInboxroadArray()[0]);
@@ -96,7 +97,7 @@ class MessageAttachmentCollectionTest extends Base
             ['name' => $this->name, 'content' => $this->content, 'mimeType' => $this->mimeType],
         ]);
         $collection->add(new MessageAttachment($this->name, $this->content, $this->mimeType));
-        
+
         $this->assertCount(4, $collection->toArray());
     }
 }

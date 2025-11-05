@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Inboxroad\Test\Models;
 
@@ -15,26 +17,25 @@ class MessageAttachmentTest extends Base
     /**
      * @var string
      */
-    private $name = 'test.txt';
+    private string $name = 'test.txt';
 
     /**
      * @var string
      */
-    private $content = 'file content';
+    private string $content = 'file content';
 
     /**
      * @var string
      */
-    private $mimeType = 'text/plain';
+    private string $mimeType = 'text/plain';
 
     /**
      * @var MessageAttachment
      */
-    private $attachment;
+    private MessageAttachment $attachment;
 
     /**
      * @return void
-     * @throws \ErrorException
      */
     public function setUp(): void
     {
@@ -116,7 +117,7 @@ class MessageAttachmentTest extends Base
         $this->assertEquals($this->attachment->getContent(), $this->attachment->toArray()['content'] ?? '');
         $this->assertEquals($this->attachment->getMimeType(), $this->attachment->toArray()['mimeType'] ?? '');
     }
-    
+
     /**
      * @return void
      */
@@ -126,7 +127,7 @@ class MessageAttachmentTest extends Base
         $this->assertArrayHasKey('filename', $this->attachment->toInboxroadArray());
         $this->assertArrayHasKey('file_data', $this->attachment->toInboxroadArray());
         $this->assertArrayHasKey('mime_type', $this->attachment->toInboxroadArray());
-        
+
         $this->assertEquals($this->attachment->getName(), $this->attachment->toInboxroadArray()['filename'] ?? '');
         $this->assertEquals($this->attachment->getContent(), base64_decode($this->attachment->toInboxroadArray()['file_data'] ?? ''));
         $this->assertEquals($this->attachment->getMimeType(), $this->attachment->toInboxroadArray()['mime_type'] ?? '');

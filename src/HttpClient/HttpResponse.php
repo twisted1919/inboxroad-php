@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Inboxroad\HttpClient;
 
@@ -9,36 +11,21 @@ namespace Inboxroad\HttpClient;
 class HttpResponse implements HttpResponseInterface
 {
     /**
-     * @var string
-     */
-    private $body;
-    
-    /**
-     * @var int
-     */
-    private $code;
-    
-    /**
-     * @var array<int, mixed>
-     */
-    private $headers;
-
-    /**
      * @var array<string, mixed>
      */
-    private $responseData;
+    private readonly array $responseData;
 
     /**
      * @param string $body
      * @param int $code
      * @param array<int, mixed> $headers
      */
-    public function __construct(string $body, int $code, array $headers = [])
-    {
-        $this->body    = $body;
-        $this->code    = $code;
-        $this->headers = $headers;
-
+    public function __construct(
+        private readonly string $body,
+        private readonly int $code,
+        private readonly array $headers = []
+    ) {
+        /** @phpstan-ignore-next-line assign.propertyType */
         $this->responseData = (array)json_decode($this->body, true);
     }
 
@@ -54,9 +41,11 @@ class HttpResponse implements HttpResponseInterface
 
     /**
      * @return array<string, mixed>
+     *
      */
     public function getResponseData(): array
     {
+        /** @phpstan-ignore-next-line return.type */
         return $this->responseData;
     }
 

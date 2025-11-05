@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Inboxroad\Models;
 
@@ -19,7 +21,7 @@ interface MessageInterface
      * @return string
      */
     public function getMessageId(): string;
-    
+
     /**
      * @param string $email
      *
@@ -149,7 +151,7 @@ interface MessageInterface
      * @return array<string, mixed>
      */
     public function toInboxroadArray(): array;
-    
+
     /**
      * @param array<string, mixed> $params
      *

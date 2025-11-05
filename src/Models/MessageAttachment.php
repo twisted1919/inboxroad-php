@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Inboxroad\Models;
 
@@ -11,17 +13,17 @@ class MessageAttachment implements MessageAttachmentInterface
     /**
      * @var string
      */
-    private $name = '';
+    private string $name = '';
 
     /**
      * @var string
      */
-    private $content = '';
+    private string $content = '';
 
     /**
      * @var string
      */
-    private $mimeType = 'application/octet-stream';
+    private string $mimeType = 'application/octet-stream';
 
     /**
      * MessageAttachment constructor.
@@ -46,6 +48,7 @@ class MessageAttachment implements MessageAttachmentInterface
     public function setName(string $name): MessageAttachmentInterface
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -65,6 +68,7 @@ class MessageAttachment implements MessageAttachmentInterface
     public function setContent(string $content): MessageAttachmentInterface
     {
         $this->content = $content;
+
         return $this;
     }
 
@@ -84,6 +88,7 @@ class MessageAttachment implements MessageAttachmentInterface
     public function setMimeType(string $mimeType): MessageAttachmentInterface
     {
         $this->mimeType = $mimeType;
+
         return $this;
     }
 

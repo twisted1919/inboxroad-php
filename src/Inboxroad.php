@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Inboxroad;
 
@@ -10,21 +12,15 @@ use Inboxroad\HttpClient\HttpClient;
  * Class Inboxroad
  * @package Inboxroad
  */
-class Inboxroad implements InboxroadInterface
+readonly class Inboxroad implements InboxroadInterface
 {
-    /**
-     * @var HttpClient
-     */
-    private $httpClient;
-
     /**
      * Inboxroad constructor.
      *
      * @param HttpClient $httpClient
      */
-    public function __construct(HttpClient $httpClient)
+    public function __construct(private HttpClient $httpClient)
     {
-        $this->httpClient = $httpClient;
     }
 
     /**

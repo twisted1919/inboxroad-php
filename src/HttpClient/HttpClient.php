@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Inboxroad\HttpClient;
 
@@ -16,17 +18,17 @@ class HttpClient implements HttpClientInterface
     /**
      * @var Client
      */
-    protected $client;
+    protected Client $client;
 
     /**
      * @var string
      */
-    protected $apiKey = '';
+    protected string $apiKey = '';
 
     /**
      * @var array<string, mixed>
      */
-    private static $options = [
+    private static array $options = [
         'base_uri' => 'https://webapi.inboxroad.com/api/v1/',
         'headers'  => [
             'Content-Type'  => 'application/json',
@@ -48,11 +50,15 @@ class HttpClient implements HttpClientInterface
             throw new ErrorException('Please provide a valid api key!');
         }
         $this->apiKey = $apiKey;
-        
+
         $options = array_merge_recursive(self::$options, $options);
+
+        /** @phpstan-ignore-next-line offsetAccess.nonOffsetAccessible */
         if (empty($options['headers']['Authorization'])) {
+            /** @phpstan-ignore-next-line offsetAccess.nonOffsetAccessible */
             $options['headers']['Authorization'] = sprintf('Basic %s', $apiKey);
         }
+
         $this->client = new Client($options);
     }
 
@@ -67,7 +73,8 @@ class HttpClient implements HttpClientInterface
     {
         try {
             $response = $this->client->get($path, $options);
-            $response = new HttpResponse((string)$response->getBody(), $response->getStatusCode(), (array)$response->getHeaders());
+            /** @phpstan-ignore-next-line argument.type */
+            $response = new HttpResponse((string)$response->getBody(), $response->getStatusCode(), $response->getHeaders());
         } catch (\GuzzleHttp\Exception\RequestException $e) {
             throw new RequestException($e->getMessage(), $e->getCode(), $e->getRequest(), $e->getResponse());
         } catch (Throwable $e) {
@@ -88,7 +95,8 @@ class HttpClient implements HttpClientInterface
     {
         try {
             $response = $this->client->post($path, $options);
-            $response = new HttpResponse((string)$response->getBody(), $response->getStatusCode(), (array) $response->getHeaders());
+            /** @phpstan-ignore-next-line argument.type */
+            $response = new HttpResponse((string)$response->getBody(), $response->getStatusCode(), $response->getHeaders());
         } catch (\GuzzleHttp\Exception\RequestException $e) {
             throw new RequestException($e->getMessage(), $e->getCode(), $e->getRequest(), $e->getResponse());
         } catch (Throwable $e) {

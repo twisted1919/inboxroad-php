@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Inboxroad\Test\Models;
 
@@ -17,22 +19,21 @@ class MessageHeaderCollectionTest extends Base
     /**
      * @var string
      */
-    private $key = 'X-Inboxroad';
+    private string $key = 'X-Inboxroad';
 
     /**
      * @var string
      */
-    private $value = 'Company';
-    
+    private string $value = 'Company';
+
     /**
      * @return void
      */
     final public function testAdd(): void
     {
         $collection = new MessageHeaderCollection();
-        $result = $collection->add(new MessageHeader($this->key, $this->value));
-        
-        $this->assertInstanceOf(MessageHeaderCollectionInterface::class, $result);
+        $collection->add(new MessageHeader($this->key, $this->value));
+
         $this->assertCount(1, $collection->toArray());
     }
 
@@ -57,7 +58,7 @@ class MessageHeaderCollectionTest extends Base
         $collection->add(new MessageHeader($this->key, $this->value));
         $collection->add(new MessageHeader($this->key, $this->value));
         $collection->add(new MessageHeader($this->key, $this->value));
-        
+
         $this->assertCount(3, $collection->toArray());
         $this->assertArrayHasKey('key', $collection->toArray()[0]);
         $this->assertArrayHasKey('value', $collection->toArray()[0]);
@@ -75,7 +76,7 @@ class MessageHeaderCollectionTest extends Base
 
         $this->assertCount(1, $collection->toInboxroadArray());
         $this->assertEquals([$collection->getItems()[0]->getKey() => $collection->getItems()[0]->getValue()], $collection->toInboxroadArray());
-        
+
         $collection->add(new MessageHeader('X-Test', 'Test'));
         $this->assertCount(2, $collection->toInboxroadArray());
     }
@@ -91,7 +92,7 @@ class MessageHeaderCollectionTest extends Base
             ['key' => $this->key, 'value' => $this->value],
         ]);
         $collection->add(new MessageHeader($this->key, $this->value));
-        
+
         $this->assertCount(4, $collection->toArray());
     }
 }

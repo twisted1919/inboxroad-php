@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Inboxroad\Api;
 
@@ -13,35 +15,32 @@ use Inboxroad\Response\MessagesResponse;
  * Class Messages
  * @package Inboxroad
  */
-class Messages implements MessagesInterface
+readonly class Messages implements MessagesInterface
 {
-    /**
-     * @var HttpClient
-     */
-    private $httpClient;
-
     /**
      * Messages constructor.
      *
      * @param HttpClient $httpClient
      */
-    public function __construct(HttpClient $httpClient)
+    public function __construct(private HttpClient $httpClient)
     {
-        $this->httpClient = $httpClient;
     }
 
     /**
-     * @param array<string, mixed>|MessageInterface $message
+     * @param MessageInterface|array $message
      *
      * @return MessagesResponse
      * @throws RequestException
+     *
+     * @phpstan-ignore-next-line missingType.iterable
      */
-    public function send($message): MessagesResponse
+    public function send(array|MessageInterface $message): MessagesResponse
     {
         if (!($message instanceof MessageInterface)) {
+            /** @phpstan-ignore-next-line argument.type */
             $message = Message::fromArray($message);
         }
-        
+
         /** @var HttpResponse $response */
         $response = $this->httpClient->post('messages/', [
             'json' => $message->toInboxroadArray(),
@@ -49,7 +48,7 @@ class Messages implements MessagesInterface
 
         /** @var MessagesResponse $response */
         $response = MessagesResponse::fromResponse($response);
-        
+
         if ($response->getMessageId()) {
             $message->setMessageId($response->getMessageId());
         }

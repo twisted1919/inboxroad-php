@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Inboxroad\Test\Models;
 
@@ -15,17 +17,17 @@ class MessageHeaderTest extends Base
     /**
      * @var string
      */
-    private $key = 'X-Inboxroad';
+    private string $key = 'X-Inboxroad';
 
     /**
      * @var string
      */
-    private $value = 'Company';
-    
+    private string $value = 'Company';
+
     /**
      * @var MessageHeader
      */
-    private $header;
+    private MessageHeader $header;
 
     /**
      * @return void
@@ -76,7 +78,7 @@ class MessageHeaderTest extends Base
         $this->header->setValue($this->value);
         $this->assertEquals($this->value, $this->header->getValue());
     }
-    
+
     /**
      * @return void
      */
@@ -85,7 +87,7 @@ class MessageHeaderTest extends Base
         $this->assertCount(2, $this->header->toArray());
         $this->assertArrayHasKey('key', $this->header->toArray());
         $this->assertArrayHasKey('value', $this->header->toArray());
-        
+
         $this->assertEquals($this->header->getKey(), $this->header->toArray()['key'] ?? '');
         $this->assertEquals($this->header->getValue(), $this->header->toArray()['value'] ?? '');
     }
