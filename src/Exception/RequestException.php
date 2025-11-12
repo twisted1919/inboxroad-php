@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Inboxroad\Exception;
 
@@ -13,26 +15,20 @@ use Psr\Http\Message\ResponseInterface;
 class RequestException extends Exception
 {
     /**
-     * @var RequestInterface|null
-     */
-    private $request;
-
-    /**
-     * @var ResponseInterface|null
-     */
-    private $response;
-
-    /**
      * ClientException constructor.
      *
      * @param string $message
      * @param int $code
+     * @param RequestInterface|null $request
+     * @param ResponseInterface|null $response
      */
-    public function __construct($message, $code, RequestInterface $request = null, ResponseInterface $response = null)
-    {
+    public function __construct(
+        string $message,
+        int $code,
+        private readonly ?RequestInterface $request = null,
+        private readonly ?ResponseInterface $response = null
+    ) {
         parent::__construct($message, $code);
-        $this->response = $response;
-        $this->request = $request;
     }
 
     /**

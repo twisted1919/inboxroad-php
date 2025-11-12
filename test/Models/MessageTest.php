@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Inboxroad\Test\Models;
 
@@ -21,47 +23,47 @@ class MessageTest extends Base
     /**
      * @var string
      */
-    private $messageId = '1234-1234-1234-1234';
+    private string $messageId = '1234-1234-1234-1234';
 
     /**
      * @var string
      */
-    private $email = 'test@inboxroad.com';
+    private string $email = 'test@inboxroad.com';
 
     /**
      * @var string
      */
-    private $name = 'Test Inboxroad';
+    private string $name = 'Test Inboxroad';
 
     /**
      * @var string
      */
-    private $subject = 'Email subject';
+    private string $subject = 'Email subject';
 
     /**
      * @var string
      */
-    private $text = 'Email plain text';
+    private string $text = 'Email plain text';
 
     /**
      * @var string
      */
-    private $html = '<strong>Email html content</strong>';
+    private string $html = '<strong>Email html content</strong>';
 
     /**
      * @var MessageHeaderCollectionInterface
      */
-    private $headers;
+    private MessageHeaderCollectionInterface $headers;
 
     /**
      * @var MessageAttachmentCollectionInterface
      */
-    private $attachments;
+    private MessageAttachmentCollectionInterface $attachments;
 
     /**
      * @var MessageInterface
      */
-    private $message;
+    private MessageInterface $message;
 
     /**
      * @return void
@@ -73,7 +75,7 @@ class MessageTest extends Base
 
         $this->headers = new MessageHeaderCollection();
         $this->headers->add(new MessageHeader('X-Inboxroad', 'Company'));
-        
+
         $this->attachments = new MessageAttachmentCollection();
         $this->attachments->add(new MessageAttachment('text.txt', base64_encode('text'), 'text/plain'));
     }
@@ -92,8 +94,7 @@ class MessageTest extends Base
     final public function testGetMessageId(): void
     {
         $this->message->setMessageId($this->messageId);
-        
-        $this->assertIsString($this->message->getMessageId());
+
         $this->assertEquals($this->messageId, $this->message->getMessageId());
     }
 
@@ -112,7 +113,6 @@ class MessageTest extends Base
     {
         $this->message->setFromEmail($this->email);
 
-        $this->assertIsString($this->message->getFromEmail());
         $this->assertEquals($this->email, $this->message->getFromEmail());
     }
 
@@ -131,7 +131,6 @@ class MessageTest extends Base
     {
         $this->message->setFromName($this->name);
 
-        $this->assertIsString($this->message->getFromName());
         $this->assertEquals($this->name, $this->message->getFromName());
     }
 
@@ -150,7 +149,6 @@ class MessageTest extends Base
     {
         $this->message->setToEmail($this->email);
 
-        $this->assertIsString($this->message->getToEmail());
         $this->assertEquals($this->email, $this->message->getToEmail());
     }
 
@@ -169,7 +167,6 @@ class MessageTest extends Base
     {
         $this->message->setToName($this->name);
 
-        $this->assertIsString($this->message->getToName());
         $this->assertEquals($this->name, $this->message->getToName());
     }
 
@@ -188,7 +185,6 @@ class MessageTest extends Base
     {
         $this->message->setReplyToEmail($this->email);
 
-        $this->assertIsString($this->message->getReplyToEmail());
         $this->assertEquals($this->email, $this->message->getReplyToEmail());
     }
 
@@ -207,7 +203,6 @@ class MessageTest extends Base
     {
         $this->message->setSubject($this->subject);
 
-        $this->assertIsString($this->message->getSubject());
         $this->assertEquals($this->subject, $this->message->getSubject());
     }
 
@@ -226,7 +221,6 @@ class MessageTest extends Base
     {
         $this->message->setText($this->text);
 
-        $this->assertIsString($this->message->getText());
         $this->assertEquals($this->text, $this->message->getText());
     }
 
@@ -245,7 +239,6 @@ class MessageTest extends Base
     {
         $this->message->setHtml($this->html);
 
-        $this->assertIsString($this->message->getHtml());
         $this->assertEquals($this->html, $this->message->getHtml());
     }
 
@@ -304,25 +297,12 @@ class MessageTest extends Base
             'attachments'   => $this->attachments->toArray()
         ]);
 
-        $this->assertIsString($message->getFromEmail());
         $this->assertEquals($this->email, $message->getFromEmail());
-
-        $this->assertIsString($message->getToEmail());
         $this->assertEquals($this->email, $message->getToEmail());
-
-        $this->assertIsString($message->getToName());
         $this->assertEquals($this->name, $message->getToName());
-
-        $this->assertIsString($message->getReplyToEmail());
         $this->assertEquals($this->email, $message->getReplyToEmail());
-
-        $this->assertIsString($message->getSubject());
         $this->assertEquals($this->subject, $message->getSubject());
-
-        $this->assertIsString($message->getText());
         $this->assertEquals($this->text, $message->getText());
-
-        $this->assertIsString($message->getHtml());
         $this->assertEquals($this->html, $message->getHtml());
 
         $this->assertInstanceOf(MessageHeaderCollectionInterface::class, $message->getHeaders());
@@ -331,7 +311,7 @@ class MessageTest extends Base
         $this->assertInstanceOf(MessageAttachmentCollectionInterface::class, $message->getAttachments());
         $this->assertCount(1, $message->getAttachments()->toArray());
     }
-    
+
     /**
      * @return void
      */
@@ -408,7 +388,7 @@ class MessageTest extends Base
             ->setHtml($this->html)
             ->setHeaders($this->headers)
             ->setAttachments($this->attachments);
-        
+
         $params = $message->toInboxroadArray();
 
         $this->assertArrayHasKey('from_email', $params);
@@ -418,7 +398,7 @@ class MessageTest extends Base
         $this->assertArrayHasKey('from_name', $params);
         $this->assertIsString($params['from_name']);
         $this->assertEquals($this->name, $params['from_name']);
-        
+
         $this->assertArrayHasKey('to_email', $params);
         $this->assertIsString($params['to_email']);
         $this->assertEquals($this->email, $params['to_email']);

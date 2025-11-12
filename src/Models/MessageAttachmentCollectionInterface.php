@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Inboxroad\Models;
 
@@ -19,7 +21,7 @@ interface MessageAttachmentCollectionInterface
      * @return array<int, MessageAttachmentInterface>
      */
     public function getItems(): array;
-    
+
     /**
      * @return array<int, array<string, mixed>>
      */

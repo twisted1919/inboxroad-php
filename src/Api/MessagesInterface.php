@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Inboxroad\Api;
 
@@ -13,10 +15,10 @@ use Inboxroad\Response\MessagesResponse;
 interface MessagesInterface
 {
     /**
-     * @param array<string, mixed>|MessageInterface $message
+     * @param MessageInterface|array<string, mixed> $message
      *
      * @return MessagesResponse
      * @throws RequestException
      */
-    public function send($message): MessagesResponse;
+    public function send(array|MessageInterface $message): MessagesResponse;
 }

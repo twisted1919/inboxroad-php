@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Inboxroad\Models;
 
@@ -11,7 +13,7 @@ class MessageAttachmentCollection implements MessageAttachmentCollectionInterfac
     /**
      * @var array<MessageAttachmentInterface>
      */
-    private $collection = [];
+    private array $collection = [];
 
     /**
      * @param MessageAttachmentInterface $attachment
@@ -21,17 +23,18 @@ class MessageAttachmentCollection implements MessageAttachmentCollectionInterfac
     public function add(MessageAttachmentInterface $attachment): MessageAttachmentCollectionInterface
     {
         $this->collection[] = $attachment;
+
         return $this;
     }
 
     /**
-     * @return array<int, MessageAttachmentInterface>
+     * @return array<MessageAttachmentInterface>
      */
     public function getItems(): array
     {
         return $this->collection;
     }
-    
+
     /**
      * @return array<int, array<string, string>>
      */
@@ -41,6 +44,7 @@ class MessageAttachmentCollection implements MessageAttachmentCollectionInterfac
         foreach ($this->collection as $item) {
             $data[] = $item->toArray();
         }
+
         return $data;
     }
 
@@ -53,6 +57,7 @@ class MessageAttachmentCollection implements MessageAttachmentCollectionInterfac
         foreach ($this->collection as $item) {
             $data[] = $item->toInboxroadArray();
         }
+
         return $data;
     }
 
@@ -67,6 +72,7 @@ class MessageAttachmentCollection implements MessageAttachmentCollectionInterfac
         foreach ($items as $item) {
             $collection->add(new MessageAttachment($item['name'] ?? '', $item['content'] ?? '', $item['mimeType'] ?? ''));
         }
+
         return $collection;
     }
 }

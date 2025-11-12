@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Inboxroad\Models;
 
@@ -16,7 +18,7 @@ interface MessageAttachmentInterface
      * @param string $mimeType
      */
     public function __construct(string $name, string $content, string $mimeType = 'application/octet-stream');
-    
+
     /**
      * @param string $name
      *

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Inboxroad\Models;
 
@@ -11,12 +13,12 @@ class MessageHeader implements MessageHeaderInterface
     /**
      * @var string
      */
-    private $key = '';
+    private string $key = '';
 
     /**
      * @var string
      */
-    private $value = '';
+    private string $value = '';
 
     /**
      * MessageHeader constructor.
@@ -39,6 +41,7 @@ class MessageHeader implements MessageHeaderInterface
     public function setKey(string $key): MessageHeaderInterface
     {
         $this->key = $key;
+
         return $this;
     }
 
@@ -58,6 +61,7 @@ class MessageHeader implements MessageHeaderInterface
     public function setValue(string $value): MessageHeaderInterface
     {
         $this->value = $value;
+
         return $this;
     }
 

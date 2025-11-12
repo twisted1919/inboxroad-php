@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Inboxroad\Models;
 
@@ -15,7 +17,7 @@ interface MessageHeaderInterface
      * @param string $value
      */
     public function __construct(string $key, string $value);
-    
+
     /**
      * @param string $key
      *

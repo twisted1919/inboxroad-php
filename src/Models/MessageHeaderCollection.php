@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Inboxroad\Models;
 
@@ -11,7 +13,7 @@ class MessageHeaderCollection implements MessageHeaderCollectionInterface
     /**
      * @var array<MessageHeaderInterface>
      */
-    private $collection = [];
+    private array $collection = [];
 
     /**
      * @param MessageHeaderInterface $header
@@ -21,11 +23,12 @@ class MessageHeaderCollection implements MessageHeaderCollectionInterface
     public function add(MessageHeaderInterface $header): MessageHeaderCollectionInterface
     {
         $this->collection[] = $header;
+
         return $this;
     }
 
     /**
-     * @return array<int, MessageHeaderInterface>
+     * @return array<MessageHeaderInterface>
      */
     public function getItems(): array
     {
@@ -41,6 +44,7 @@ class MessageHeaderCollection implements MessageHeaderCollectionInterface
         foreach ($this->collection as $item) {
             $data[] = $item->toArray();
         }
+
         return $data;
     }
 
@@ -53,7 +57,7 @@ class MessageHeaderCollection implements MessageHeaderCollectionInterface
         foreach ($this->getItems() as $header) {
             $data = array_merge($data, [$header->getKey() => $header->getValue()]);
         }
-        
+
         return $data;
     }
 
@@ -68,6 +72,7 @@ class MessageHeaderCollection implements MessageHeaderCollectionInterface
         foreach ($items as $item) {
             $collection->add(new MessageHeader($item['key'] ?? '', $item['value'] ?? ''));
         }
+
         return $collection;
     }
 }

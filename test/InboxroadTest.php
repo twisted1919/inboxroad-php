@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Inboxroad\Test;
 
@@ -15,7 +17,7 @@ class InboxroadTest extends Base
     /**
      * @var Inboxroad
      */
-    private $inboxroad;
+    private Inboxroad $inboxroad;
 
     /**
      * @return void
@@ -23,7 +25,7 @@ class InboxroadTest extends Base
     public function setUp(): void
     {
         parent::setUp();
-        
+
         $this->inboxroad = new Inboxroad(new HttpClient('DUMMY'));
     }
 

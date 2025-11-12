@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Inboxroad\Response;
 
@@ -17,6 +19,8 @@ class MessagesResponse extends Response
         if (empty($responseData['message_id'])) {
             return '';
         }
+
+        /** @phpstan-ignore-next-line cast.string */
         return (string)str_replace(['<', '>'], '', (string)$responseData['message_id']);
     }
 }

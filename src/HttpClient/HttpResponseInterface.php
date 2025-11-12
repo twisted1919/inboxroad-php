@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Inboxroad\HttpClient;
 
@@ -16,7 +18,7 @@ interface HttpResponseInterface
      * @param array<int, mixed> $headers
      */
     public function __construct(string $body, int $code, array $headers = []);
-    
+
     /**
      * @param HttpResponseInterface $response
      *

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Inboxroad\Models;
 
@@ -29,7 +31,7 @@ interface MessageHeaderCollectionInterface
      * @return array<string, string>
      */
     public function toInboxroadArray(): array;
-    
+
     /**
      * @param array<int, array<string, string>> $items
      *

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Inboxroad\Models;
 
@@ -13,57 +15,57 @@ class Message implements MessageInterface
     /**
      * @var string
      */
-    private $messageId = '';
-    
-    /**
-     * @var string
-     */
-    private $fromEmail = '';
+    private string $messageId = '';
 
     /**
      * @var string
      */
-    private $fromName = '';
+    private string $fromEmail = '';
 
     /**
      * @var string
      */
-    private $toEmail = '';
+    private string $fromName = '';
 
     /**
      * @var string
      */
-    private $toName = '';
+    private string $toEmail = '';
 
     /**
      * @var string
      */
-    private $replyToEmail = '';
+    private string $toName = '';
 
     /**
      * @var string
      */
-    private $subject = '';
+    private string $replyToEmail = '';
 
     /**
      * @var string
      */
-    private $text = '';
+    private string $subject = '';
 
     /**
      * @var string
      */
-    private $html = '';
-    
+    private string $text = '';
+
+    /**
+     * @var string
+     */
+    private string $html = '';
+
     /**
      * @var MessageHeaderCollectionInterface
      */
-    private $headers;
+    private MessageHeaderCollectionInterface $headers;
 
     /**
      * @var MessageAttachmentCollectionInterface
      */
-    private $attachments;
+    private MessageAttachmentCollectionInterface $attachments;
 
     /**
      * Message constructor.
@@ -82,6 +84,7 @@ class Message implements MessageInterface
     public function setMessageId(string $messageId): MessageInterface
     {
         $this->messageId = $messageId;
+
         return $this;
     }
 
@@ -92,7 +95,7 @@ class Message implements MessageInterface
     {
         return $this->messageId;
     }
-    
+
     /**
      * @param string $email
      *
@@ -101,6 +104,7 @@ class Message implements MessageInterface
     public function setFromEmail(string $email): MessageInterface
     {
         $this->fromEmail = $email;
+
         return $this;
     }
 
@@ -120,6 +124,7 @@ class Message implements MessageInterface
     public function setFromName(string $name): MessageInterface
     {
         $this->fromName = $name;
+
         return $this;
     }
 
@@ -139,6 +144,7 @@ class Message implements MessageInterface
     public function setToEmail(string $email): MessageInterface
     {
         $this->toEmail = $email;
+
         return $this;
     }
 
@@ -158,6 +164,7 @@ class Message implements MessageInterface
     public function setToName(string $name): MessageInterface
     {
         $this->toName = $name;
+
         return $this;
     }
 
@@ -177,6 +184,7 @@ class Message implements MessageInterface
     public function setReplyToEmail(string $email): MessageInterface
     {
         $this->replyToEmail = $email;
+
         return $this;
     }
 
@@ -196,6 +204,7 @@ class Message implements MessageInterface
     public function setSubject(string $subject): MessageInterface
     {
         $this->subject = $subject;
+
         return $this;
     }
 
@@ -215,6 +224,7 @@ class Message implements MessageInterface
     public function setText(string $text): MessageInterface
     {
         $this->text = $text;
+
         return $this;
     }
 
@@ -234,6 +244,7 @@ class Message implements MessageInterface
     public function setHtml(string $html): MessageInterface
     {
         $this->html = $html;
+
         return $this;
     }
 
@@ -253,6 +264,7 @@ class Message implements MessageInterface
     public function setHeaders(MessageHeaderCollectionInterface $headers): MessageInterface
     {
         $this->headers = $headers;
+
         return $this;
     }
 
@@ -272,6 +284,7 @@ class Message implements MessageInterface
     public function setAttachments(MessageAttachmentCollectionInterface $attachments): MessageInterface
     {
         $this->attachments = $attachments;
+
         return $this;
     }
 
@@ -282,7 +295,7 @@ class Message implements MessageInterface
     {
         return $this->attachments;
     }
-    
+
     /**
      * @return array<string, mixed>
      */
@@ -311,13 +324,13 @@ class Message implements MessageInterface
         if (empty($headers)) {
             $headers = new StdClass();
         }
-        
+
         return [
             'from_email'    => $this->getFromEmail(),
             'from_name'     => $this->getFromName(),
             'to_email'      => $this->getToEmail(),
             'to_name'       => $this->getToName(),
-            'reply_to_email'=> $this->getReplyToEmail(),
+            'reply_to_email' => $this->getReplyToEmail(),
             'subject'       => $this->getSubject(),
             'text'          => $this->getText(),
             'html'          => $this->getHtml(),
@@ -334,15 +347,25 @@ class Message implements MessageInterface
     public static function fromArray(array $params): MessageInterface
     {
         return (new self())
+            /** @phpstan-ignore-next-line argument.type */
             ->setFromEmail($params['fromEmail'] ?? '')
+            /** @phpstan-ignore-next-line argument.type */
             ->setFromName($params['fromName'] ?? '')
+            /** @phpstan-ignore-next-line argument.type */
             ->setToEmail($params['toEmail'] ?? '')
+            /** @phpstan-ignore-next-line argument.type */
             ->setToName($params['toName'] ?? '')
+            /** @phpstan-ignore-next-line argument.type */
             ->setReplyToEmail($params['replyToEmail'] ?? '')
+            /** @phpstan-ignore-next-line argument.type */
             ->setSubject($params['subject'] ?? '')
+            /** @phpstan-ignore-next-line argument.type */
             ->setText($params['text'] ?? '')
+            /** @phpstan-ignore-next-line argument.type */
             ->setHtml($params['html'] ?? '')
+            /** @phpstan-ignore-next-line argument.type */
             ->setHeaders(MessageHeaderCollection::fromArray($params['headers'] ?? []))
+            /** @phpstan-ignore-next-line argument.type */
             ->setAttachments(MessageAttachmentCollection::fromArray($params['attachments'] ?? []));
     }
 }
